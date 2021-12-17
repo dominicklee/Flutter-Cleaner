@@ -17,4 +17,4 @@ Flutter and Android Studio are great tools. Unfortunately, some of the greatest 
 
 ## Disclaimer ##
 
-This is a work in progress. By using this tool, you agree that author shall not be liable for any loss, damages, or unexpected behavior occurring as a result of this tool. Use at your own risk.
+This is a work in progress. The author is not affiliated or endorsed by Flutter, Dart, or Google. By using this tool, you agree that author shall not be liable for any loss, damages, or unexpected behavior occurring as a result of this tool. Use at your own risk.
