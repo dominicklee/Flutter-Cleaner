@@ -11,6 +11,7 @@ Public Class Form1
         Dim year As String = Date.Today.Year.ToString
         lblCopyright.Text = "© " & year & " by Dominick Lee."
         lblVersion.Text = "v" & Application.ProductVersion
+        lstOrientations.SelectionMode = SelectionMode.MultiExtended
     End Sub
 
     Private Sub txtProjectPath_TextChanged(sender As Object, e As EventArgs) Handles txtProjectPath.TextChanged

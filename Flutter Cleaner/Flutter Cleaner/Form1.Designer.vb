@@ -25,29 +25,29 @@ Partial Class Form1
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.lblCopyright = New System.Windows.Forms.Label()
-        Me.lblVersion = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
-        Me.txtPackageName = New System.Windows.Forms.TextBox()
-        Me.lblPackageName = New System.Windows.Forms.Label()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.btnGetNames = New System.Windows.Forms.Button()
+        Me.btnUpdateNames = New System.Windows.Forms.Button()
+        Me.btnBrowseProject = New System.Windows.Forms.Button()
+        Me.txtProjectPath = New System.Windows.Forms.TextBox()
+        Me.lblProjectPath = New System.Windows.Forms.Label()
         Me.lblAppName = New System.Windows.Forms.Label()
         Me.txtAppName = New System.Windows.Forms.TextBox()
-        Me.lblProjectPath = New System.Windows.Forms.Label()
-        Me.txtProjectPath = New System.Windows.Forms.TextBox()
-        Me.btnBrowseProject = New System.Windows.Forms.Button()
-        Me.btnUpdateNames = New System.Windows.Forms.Button()
+        Me.lblPackageName = New System.Windows.Forms.Label()
+        Me.txtPackageName = New System.Windows.Forms.TextBox()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.btnGetOrientations = New System.Windows.Forms.Button()
+        Me.btnSetOrientations = New System.Windows.Forms.Button()
+        Me.lstOrientations = New System.Windows.Forms.ListBox()
         Me.btnBrowseProject2 = New System.Windows.Forms.Button()
         Me.txtProjectPath2 = New System.Windows.Forms.TextBox()
         Me.lblProjectPath2 = New System.Windows.Forms.Label()
         Me.lblOrientations = New System.Windows.Forms.Label()
-        Me.lstOrientations = New System.Windows.Forms.ListBox()
-        Me.btnGetNames = New System.Windows.Forms.Button()
-        Me.btnGetOrientations = New System.Windows.Forms.Button()
-        Me.btnSetOrientations = New System.Windows.Forms.Button()
+        Me.lblCopyright = New System.Windows.Forms.Label()
+        Me.lblVersion = New System.Windows.Forms.Label()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -80,6 +80,33 @@ Partial Class Form1
         Me.TabPage1.Text = "Memory Issue"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(88, 119)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(155, 25)
+        Me.Button3.TabIndex = 3
+        Me.Button3.Text = "Start Android Studio"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(88, 86)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(155, 25)
+        Me.Button2.TabIndex = 1
+        Me.Button2.Text = "Boost RAM"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(88, 53)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(155, 25)
+        Me.Button1.TabIndex = 0
+        Me.Button1.Text = "Close Flutter Processes"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'TabPage2
         '
         Me.TabPage2.Controls.Add(Me.btnGetNames)
@@ -100,85 +127,48 @@ Partial Class Form1
         Me.TabPage2.Text = "Rename App"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
-        'TabPage3
+        'btnGetNames
         '
-        Me.TabPage3.Controls.Add(Me.btnGetOrientations)
-        Me.TabPage3.Controls.Add(Me.btnSetOrientations)
-        Me.TabPage3.Controls.Add(Me.lstOrientations)
-        Me.TabPage3.Controls.Add(Me.btnBrowseProject2)
-        Me.TabPage3.Controls.Add(Me.txtProjectPath2)
-        Me.TabPage3.Controls.Add(Me.lblProjectPath2)
-        Me.TabPage3.Controls.Add(Me.lblOrientations)
-        Me.TabPage3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(332, 211)
-        Me.TabPage3.TabIndex = 2
-        Me.TabPage3.Text = "App Orientation"
-        Me.TabPage3.UseVisualStyleBackColor = True
+        Me.btnGetNames.Location = New System.Drawing.Point(100, 110)
+        Me.btnGetNames.Name = "btnGetNames"
+        Me.btnGetNames.Size = New System.Drawing.Size(100, 25)
+        Me.btnGetNames.TabIndex = 5
+        Me.btnGetNames.Text = "Get Names"
+        Me.btnGetNames.UseVisualStyleBackColor = True
         '
-        'lblCopyright
+        'btnUpdateNames
         '
-        Me.lblCopyright.AutoSize = True
-        Me.lblCopyright.ForeColor = System.Drawing.Color.Gray
-        Me.lblCopyright.Location = New System.Drawing.Point(11, 259)
-        Me.lblCopyright.Name = "lblCopyright"
-        Me.lblCopyright.Size = New System.Drawing.Size(101, 13)
-        Me.lblCopyright.TabIndex = 1
-        Me.lblCopyright.Text = "© by Dominick Lee."
+        Me.btnUpdateNames.Location = New System.Drawing.Point(206, 110)
+        Me.btnUpdateNames.Name = "btnUpdateNames"
+        Me.btnUpdateNames.Size = New System.Drawing.Size(110, 25)
+        Me.btnUpdateNames.TabIndex = 4
+        Me.btnUpdateNames.Text = "Update Names"
+        Me.btnUpdateNames.UseVisualStyleBackColor = True
         '
-        'lblVersion
+        'btnBrowseProject
         '
-        Me.lblVersion.ForeColor = System.Drawing.Color.Gray
-        Me.lblVersion.Location = New System.Drawing.Point(251, 259)
-        Me.lblVersion.Name = "lblVersion"
-        Me.lblVersion.Size = New System.Drawing.Size(101, 13)
-        Me.lblVersion.TabIndex = 2
-        Me.lblVersion.Text = "v"
-        Me.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight
+        Me.btnBrowseProject.Location = New System.Drawing.Point(245, 12)
+        Me.btnBrowseProject.Name = "btnBrowseProject"
+        Me.btnBrowseProject.Size = New System.Drawing.Size(71, 23)
+        Me.btnBrowseProject.TabIndex = 3
+        Me.btnBrowseProject.Text = "Browse"
+        Me.btnBrowseProject.UseVisualStyleBackColor = True
         '
-        'Button1
+        'txtProjectPath
         '
-        Me.Button1.Location = New System.Drawing.Point(88, 53)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(155, 25)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "Close Flutter Processes"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.txtProjectPath.Location = New System.Drawing.Point(106, 13)
+        Me.txtProjectPath.Name = "txtProjectPath"
+        Me.txtProjectPath.Size = New System.Drawing.Size(133, 21)
+        Me.txtProjectPath.TabIndex = 3
         '
-        'Button2
+        'lblProjectPath
         '
-        Me.Button2.Location = New System.Drawing.Point(88, 86)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(155, 25)
-        Me.Button2.TabIndex = 1
-        Me.Button2.Text = "Boost RAM"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'Button3
-        '
-        Me.Button3.Location = New System.Drawing.Point(88, 119)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(155, 25)
-        Me.Button3.TabIndex = 3
-        Me.Button3.Text = "Start Android Studio"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'txtPackageName
-        '
-        Me.txtPackageName.Location = New System.Drawing.Point(106, 45)
-        Me.txtPackageName.Name = "txtPackageName"
-        Me.txtPackageName.Size = New System.Drawing.Size(210, 21)
-        Me.txtPackageName.TabIndex = 0
-        '
-        'lblPackageName
-        '
-        Me.lblPackageName.AutoSize = True
-        Me.lblPackageName.Location = New System.Drawing.Point(5, 48)
-        Me.lblPackageName.Name = "lblPackageName"
-        Me.lblPackageName.Size = New System.Drawing.Size(95, 15)
-        Me.lblPackageName.TabIndex = 1
-        Me.lblPackageName.Text = "Package Name:"
+        Me.lblProjectPath.AutoSize = True
+        Me.lblProjectPath.Location = New System.Drawing.Point(24, 16)
+        Me.lblProjectPath.Name = "lblProjectPath"
+        Me.lblProjectPath.Size = New System.Drawing.Size(76, 15)
+        Me.lblProjectPath.TabIndex = 4
+        Me.lblProjectPath.Text = "Project Path:"
         '
         'lblAppName
         '
@@ -196,39 +186,66 @@ Partial Class Form1
         Me.txtAppName.Size = New System.Drawing.Size(210, 21)
         Me.txtAppName.TabIndex = 2
         '
-        'lblProjectPath
+        'lblPackageName
         '
-        Me.lblProjectPath.AutoSize = True
-        Me.lblProjectPath.Location = New System.Drawing.Point(24, 16)
-        Me.lblProjectPath.Name = "lblProjectPath"
-        Me.lblProjectPath.Size = New System.Drawing.Size(76, 15)
-        Me.lblProjectPath.TabIndex = 4
-        Me.lblProjectPath.Text = "Project Path:"
+        Me.lblPackageName.AutoSize = True
+        Me.lblPackageName.Location = New System.Drawing.Point(5, 48)
+        Me.lblPackageName.Name = "lblPackageName"
+        Me.lblPackageName.Size = New System.Drawing.Size(95, 15)
+        Me.lblPackageName.TabIndex = 1
+        Me.lblPackageName.Text = "Package Name:"
         '
-        'txtProjectPath
+        'txtPackageName
         '
-        Me.txtProjectPath.Location = New System.Drawing.Point(106, 13)
-        Me.txtProjectPath.Name = "txtProjectPath"
-        Me.txtProjectPath.Size = New System.Drawing.Size(133, 21)
-        Me.txtProjectPath.TabIndex = 3
+        Me.txtPackageName.Location = New System.Drawing.Point(106, 45)
+        Me.txtPackageName.Name = "txtPackageName"
+        Me.txtPackageName.Size = New System.Drawing.Size(210, 21)
+        Me.txtPackageName.TabIndex = 0
         '
-        'btnBrowseProject
+        'TabPage3
         '
-        Me.btnBrowseProject.Location = New System.Drawing.Point(245, 12)
-        Me.btnBrowseProject.Name = "btnBrowseProject"
-        Me.btnBrowseProject.Size = New System.Drawing.Size(71, 23)
-        Me.btnBrowseProject.TabIndex = 3
-        Me.btnBrowseProject.Text = "Browse"
-        Me.btnBrowseProject.UseVisualStyleBackColor = True
+        Me.TabPage3.Controls.Add(Me.btnGetOrientations)
+        Me.TabPage3.Controls.Add(Me.btnSetOrientations)
+        Me.TabPage3.Controls.Add(Me.lstOrientations)
+        Me.TabPage3.Controls.Add(Me.btnBrowseProject2)
+        Me.TabPage3.Controls.Add(Me.txtProjectPath2)
+        Me.TabPage3.Controls.Add(Me.lblProjectPath2)
+        Me.TabPage3.Controls.Add(Me.lblOrientations)
+        Me.TabPage3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Size = New System.Drawing.Size(332, 211)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "App Orientation"
+        Me.TabPage3.UseVisualStyleBackColor = True
         '
-        'btnUpdateNames
+        'btnGetOrientations
         '
-        Me.btnUpdateNames.Location = New System.Drawing.Point(206, 110)
-        Me.btnUpdateNames.Name = "btnUpdateNames"
-        Me.btnUpdateNames.Size = New System.Drawing.Size(110, 25)
-        Me.btnUpdateNames.TabIndex = 4
-        Me.btnUpdateNames.Text = "Update Names"
-        Me.btnUpdateNames.UseVisualStyleBackColor = True
+        Me.btnGetOrientations.Location = New System.Drawing.Point(100, 152)
+        Me.btnGetOrientations.Name = "btnGetOrientations"
+        Me.btnGetOrientations.Size = New System.Drawing.Size(100, 25)
+        Me.btnGetOrientations.TabIndex = 15
+        Me.btnGetOrientations.Text = "Get Settings"
+        Me.btnGetOrientations.UseVisualStyleBackColor = True
+        '
+        'btnSetOrientations
+        '
+        Me.btnSetOrientations.Location = New System.Drawing.Point(206, 152)
+        Me.btnSetOrientations.Name = "btnSetOrientations"
+        Me.btnSetOrientations.Size = New System.Drawing.Size(110, 25)
+        Me.btnSetOrientations.TabIndex = 14
+        Me.btnSetOrientations.Text = "Set Settings"
+        Me.btnSetOrientations.UseVisualStyleBackColor = True
+        '
+        'lstOrientations
+        '
+        Me.lstOrientations.FormattingEnabled = True
+        Me.lstOrientations.ItemHeight = 15
+        Me.lstOrientations.Items.AddRange(New Object() {"portraitUp", "landscapeLeft", "landscapeRight", "portraitDown"})
+        Me.lstOrientations.Location = New System.Drawing.Point(106, 48)
+        Me.lstOrientations.Name = "lstOrientations"
+        Me.lstOrientations.Size = New System.Drawing.Size(210, 94)
+        Me.lstOrientations.TabIndex = 13
         '
         'btnBrowseProject2
         '
@@ -264,41 +281,25 @@ Partial Class Form1
         Me.lblOrientations.TabIndex = 6
         Me.lblOrientations.Text = "Orientations:"
         '
-        'lstOrientations
+        'lblCopyright
         '
-        Me.lstOrientations.FormattingEnabled = True
-        Me.lstOrientations.ItemHeight = 15
-        Me.lstOrientations.Location = New System.Drawing.Point(106, 48)
-        Me.lstOrientations.Name = "lstOrientations"
-        Me.lstOrientations.Size = New System.Drawing.Size(210, 94)
-        Me.lstOrientations.TabIndex = 13
+        Me.lblCopyright.AutoSize = True
+        Me.lblCopyright.ForeColor = System.Drawing.Color.Gray
+        Me.lblCopyright.Location = New System.Drawing.Point(11, 259)
+        Me.lblCopyright.Name = "lblCopyright"
+        Me.lblCopyright.Size = New System.Drawing.Size(101, 13)
+        Me.lblCopyright.TabIndex = 1
+        Me.lblCopyright.Text = "© by Dominick Lee."
         '
-        'btnGetNames
+        'lblVersion
         '
-        Me.btnGetNames.Location = New System.Drawing.Point(100, 110)
-        Me.btnGetNames.Name = "btnGetNames"
-        Me.btnGetNames.Size = New System.Drawing.Size(100, 25)
-        Me.btnGetNames.TabIndex = 5
-        Me.btnGetNames.Text = "Get Names"
-        Me.btnGetNames.UseVisualStyleBackColor = True
-        '
-        'btnGetOrientations
-        '
-        Me.btnGetOrientations.Location = New System.Drawing.Point(100, 152)
-        Me.btnGetOrientations.Name = "btnGetOrientations"
-        Me.btnGetOrientations.Size = New System.Drawing.Size(100, 25)
-        Me.btnGetOrientations.TabIndex = 15
-        Me.btnGetOrientations.Text = "Get Settings"
-        Me.btnGetOrientations.UseVisualStyleBackColor = True
-        '
-        'btnSetOrientations
-        '
-        Me.btnSetOrientations.Location = New System.Drawing.Point(206, 152)
-        Me.btnSetOrientations.Name = "btnSetOrientations"
-        Me.btnSetOrientations.Size = New System.Drawing.Size(110, 25)
-        Me.btnSetOrientations.TabIndex = 14
-        Me.btnSetOrientations.Text = "Set Settings"
-        Me.btnSetOrientations.UseVisualStyleBackColor = True
+        Me.lblVersion.ForeColor = System.Drawing.Color.Gray
+        Me.lblVersion.Location = New System.Drawing.Point(251, 259)
+        Me.lblVersion.Name = "lblVersion"
+        Me.lblVersion.Size = New System.Drawing.Size(101, 13)
+        Me.lblVersion.TabIndex = 2
+        Me.lblVersion.Text = "v"
+        Me.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Form1
         '
