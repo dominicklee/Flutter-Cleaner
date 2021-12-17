@@ -7,6 +7,8 @@ Flutter can't compile? Android Studio keeps crashing on you? Or did you try rena
 
 Flutter and Android Studio are great tools. Unfortunately, some of the greatest tools still encounter problems every now and then. Most of the problems above are usually caused by low-memory issues or package name inconsistencies. If you feel that is the case, give Flutter Cleaner a try.
 
+![Flutter Cleaner](https://raw.githubusercontent.com/dominicklee/Flutter-Cleaner/main/screenshot.png)
+
 ## Features ##
 
 - Closes all processes of Dart, Flutter, Android Studio
