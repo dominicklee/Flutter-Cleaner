@@ -48,6 +48,7 @@ Partial Class Form1
         Me.btnGetNames = New System.Windows.Forms.Button()
         Me.btnGetOrientations = New System.Windows.Forms.Button()
         Me.btnSetOrientations = New System.Windows.Forms.Button()
+        Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -160,7 +161,7 @@ Partial Class Form1
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(155, 25)
         Me.Button3.TabIndex = 3
-        Me.Button3.Text = "Restart Android Studio"
+        Me.Button3.Text = "Start Android Studio"
         Me.Button3.UseVisualStyleBackColor = True
         '
         'txtPackageName
@@ -349,4 +350,5 @@ Partial Class Form1
     Friend WithEvents btnGetNames As Button
     Friend WithEvents btnGetOrientations As Button
     Friend WithEvents btnSetOrientations As Button
+    Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
 End Class
