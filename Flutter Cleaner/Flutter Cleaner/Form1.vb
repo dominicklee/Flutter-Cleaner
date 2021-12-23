@@ -209,7 +209,6 @@ Public Class Form1
             Catch ex As Exception
             End Try
         Loop
-
         ' Return the list
         Return result
     End Function
@@ -228,9 +227,9 @@ Public Class Form1
             rebuildMainActivity(projPath, packageName)
 
             If (r1 = True And r2 = True And r3 = True And r4 = True) Then
-                MsgBox("Package name changed successfully!")
+                MsgBox("Android package name changed successfully!")
             Else
-                MsgBox("Failed to change package name. Check file permissions.")
+                MsgBox("Failed to change Android package name. Check file permissions.")
             End If
         Else
             MsgBox("Your project path is invalid. Please ensure the root project path is selected.")
@@ -294,7 +293,45 @@ Public Class Form1
                 End Try
             End If
         End If
+    End Sub
 
+    Private Sub changeIOSnames(ByVal projPath As String, ByVal packageName As String, ByVal appName As String)
+        Dim plistFile As String = projPath & "/ios/Runner/Info.plist"
+        Dim xcodeFile As String = projPath & "/ios/Runner.xcodeproj/project.pbxproj"
+
+        If My.Computer.FileSystem.FileExists(plistFile) And My.Computer.FileSystem.FileExists(xcodeFile) Then
+            Try
+                Dim plistContent As String = My.Computer.FileSystem.ReadAllText(plistFile, System.Text.Encoding.Default)
+                Dim regex As Regex = New Regex("(?:CFBundleName</key>[\n\r]+.*<string>)(.*)(?:</string>)", RegexOptions.Multiline)
+                Dim match As Match = regex.Match(plistContent)
+                If match.Groups.Count > 0 Then
+                    Dim oldAppName As String = match.Groups(1).Value    'name before replacement
+                    Dim newPlist As String = Regex.Replace(plistContent, "([\S\s]*CFBundleName</key>[\n\r]+.*<string>)(?:.*)(</string>[\S\s]*)", "$1" & appName & "$2", RegexOptions.Multiline)
+                    My.Computer.FileSystem.WriteAllText(plistFile, newPlist, False, System.Text.Encoding.Default)
+                End If
+                MsgBox("iOS app name changed successfully!")
+            Catch ex As Exception
+                MsgBox("Failed to update iOS app name")
+            End Try
+
+            Try
+                Dim xcodeContent As String = My.Computer.FileSystem.ReadAllText(xcodeFile, System.Text.Encoding.Default)
+                Dim regex As Regex = New Regex("(PRODUCT_BUNDLE_IDENTIFIER = )(.*)(;)", RegexOptions.Multiline)
+                Dim match As Match = regex.Match(xcodeContent)
+                If match.Groups.Count > 1 Then
+                    Dim oldPackName As String = match.Groups(2).Value    'name before replacement
+                    Dim oldPhrase As String = "PRODUCT_BUNDLE_IDENTIFIER = " & oldPackName & ";"
+                    Dim newPhrase As String = "PRODUCT_BUNDLE_IDENTIFIER = " & packageName & ";"
+                    Dim newXcode As String = xcodeContent.Replace(oldPhrase, newPhrase)
+                    My.Computer.FileSystem.WriteAllText(xcodeFile, newXcode, False, System.Text.Encoding.Default)
+                End If
+                MsgBox("iOS package name changed successfully!")
+            Catch ex As Exception
+                MsgBox("Failed to update iOS package name")
+            End Try
+        Else
+            MsgBox("Project directory does not contain necessary iOS files. Skipped iOS name changes.")
+        End If
     End Sub
 
     Private Sub addInternetPermissions(ByVal projPath As String)
@@ -341,24 +378,33 @@ Public Class Form1
             Dim replacementStr As String = "android:label=""" & appName & """"
             Dim newManifestContent As String = regex.Replace(manifestContent, replacementStr)
             My.Computer.FileSystem.WriteAllText(projPath & "/android/app/src/main/AndroidManifest.xml", newManifestContent, False, System.Text.Encoding.Default)
-            MsgBox("App name changed successfully!")
+            MsgBox("Android app name changed successfully!")
         Catch ex As Exception
             MsgBox("Failed to change app name. Check file permissions.")
         End Try
     End Sub
 
     Private Sub btnUpdateNames_Click(sender As Object, e As EventArgs) Handles btnUpdateNames.Click
+        Dim bothValid As Boolean = True
+
         If isValidPackageName(txtPackageName.Text) Then
             changePackageName(txtProjectPath.Text, txtPackageName.Text)
             addInternetPermissions(txtProjectPath.Text) 'adds internet permission if not exist
         Else
+            bothValid = False
             MsgBox("Your package name is invalid. Please check and try again.")
         End If
 
         If isValidAppName(txtAppName.Text) Then
             changeAppName(txtProjectPath.Text, txtAppName.Text)
         Else
+            bothValid = False
             MsgBox("Your app name is invalid. Please check and try again.")
         End If
+
+        If bothValid = True Then
+            changeIOSnames(txtProjectPath.Text, txtPackageName.Text, txtAppName.Text)
+        End If
+
     End Sub
 End Class
