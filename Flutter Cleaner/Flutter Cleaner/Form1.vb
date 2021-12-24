@@ -407,4 +407,50 @@ Public Class Form1
         End If
 
     End Sub
+
+    Public Function prepareFlutterOrientation(ByVal projPath As String)
+        'Basically, we include package:flutter/services.dart
+        'Then we put SystemChrome chunk inside the Widget build()
+        Dim mainDartFile As String = projPath & "/lib/main.dart"
+        Try
+            Dim dartContent As String = My.Computer.FileSystem.ReadAllText(mainDartFile, System.Text.Encoding.Default)
+            If dartContent.Contains("package:flutter/services.dart") And dartContent.Contains("SystemChrome.setPreferredOrientations(") Then
+                Return True 'services exists already
+            End If
+            'Otherwise, we have to add the import
+            Dim searchChunk As String = "package:flutter/material.dart';"
+            Dim indexInsert As Integer = dartContent.IndexOf(searchChunk) + searchChunk.Length
+            dartContent = dartContent.Insert(indexInsert, vbNewLine & "import 'package:flutter/services.dart';")
+            'now add the SystemChrome
+            searchChunk = "Widget build(BuildContext context) {"
+            indexInsert = dartContent.IndexOf(searchChunk) + searchChunk.Length
+            Dim bareMinimum As String = "    SystemChrome.setPreferredOrientations(" & vbNewLine &
+                                "      [DeviceOrientation.portraitUp]" & vbNewLine &
+                                "    );"
+            dartContent = dartContent.Insert(indexInsert, vbNewLine & bareMinimum)
+            My.Computer.FileSystem.WriteAllText(mainDartFile, dartContent, False, System.Text.Encoding.Default)
+            Return True
+        Catch ex As Exception
+        End Try
+        Return False
+    End Function
+
+    Private Sub btnGetOrientations_Click(sender As Object, e As EventArgs) Handles btnGetOrientations.Click
+        lstOrientations.SetSelected(0, True)
+        lstOrientations.SetSelected(3, True)
+    End Sub
+
+    Private Sub btnSetOrientations_Click(sender As Object, e As EventArgs) Handles btnSetOrientations.Click
+        Dim res As Boolean = prepareFlutterOrientation(txtProjectPath.Text)
+        If res = False Then
+            MsgBox("Failed to prepare main.dart with orientation. Check project directory and file permissions.")
+        Else
+            'Proceed to update orientations
+
+        End If
+
+        For Each item In lstOrientations.SelectedItems
+            MsgBox(item)
+        Next
+    End Sub
 End Class

@@ -53,7 +53,6 @@ Partial Class Form1
         Me.lblCopyright = New System.Windows.Forms.Label()
         Me.lblVersion = New System.Windows.Forms.Label()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.ListBox1 = New System.Windows.Forms.ListBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -346,20 +345,11 @@ Partial Class Form1
         Me.lblVersion.Text = "v"
         Me.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
-        'ListBox1
-        '
-        Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.Location = New System.Drawing.Point(372, 12)
-        Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(200, 264)
-        Me.ListBox1.TabIndex = 6
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(584, 291)
-        Me.Controls.Add(Me.ListBox1)
+        Me.ClientSize = New System.Drawing.Size(364, 291)
         Me.Controls.Add(Me.lblVersion)
         Me.Controls.Add(Me.lblCopyright)
         Me.Controls.Add(Me.btnBrowseProject)
@@ -415,5 +405,4 @@ Partial Class Form1
     Friend WithEvents chkShrinkResources As CheckBox
     Friend WithEvents lblMinSDK As Label
     Friend WithEvents txtMinSDK As TextBox
-    Friend WithEvents ListBox1 As ListBox
 End Class
