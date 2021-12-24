@@ -543,4 +543,111 @@ Public Class Form1
             setAppOrientations(txtProjectPath.Text)
         End If
     End Sub
+
+    Private Sub btnPrepReleaseConfig_Click(sender As Object, e As EventArgs) Handles btnPrepReleaseConfig.Click
+        If gradleFileExists(txtProjectPath.Text) Then
+            updateMinSDK(txtProjectPath.Text, txtMinSDK.Text)
+            prepareSigningConfigs(txtProjectPath.Text)
+            recreateBuildTypes(txtProjectPath.Text)
+        Else
+            MsgBox("The build.gradle file was not found in your project directory")
+        End If
+    End Sub
+
+    Public Function gradleFileExists(ByVal projPath As String)
+        Dim gradlePath As String = projPath & "/android/app/build.gradle"
+        If My.Computer.FileSystem.FileExists(gradlePath) Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    Private Sub updateMinSDK(ByVal projPath As String, ByVal minSdk As String)
+        Dim gradlePath As String = projPath & "/android/app/build.gradle"
+        Try
+            Dim gradleContent As String = My.Computer.FileSystem.ReadAllText(gradlePath, System.Text.Encoding.Default)
+            Dim regex As Regex = New Regex("(minSdkVersion \d*)")
+            Dim match As Match = regex.Match(gradleContent)
+            If match.Success Then
+                If match.Groups.Count > 1 Then
+                    Dim oldPhrase As String = match.Groups(1).Value
+                    Dim newPhrase As String = "minSdkVersion " & minSdk
+                    Dim res As Boolean = replacePhraseInFile(gradlePath, oldPhrase, newPhrase)
+                    If res = True Then
+                        MsgBox("Android Min SDK version updated!")
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox("Failed to update Android Min SDK version")
+        End Try
+    End Sub
+
+    Private Sub prepareSigningConfigs(ByVal projPath As String)
+        'Prepare signing configs if they are not there
+        'See for more details: docs.codemagic.io/flutter-code-signing/android-code-signing/
+        Dim gradlePath As String = projPath & "/android/app/build.gradle"
+        Try
+            Dim gradleContent As String = My.Computer.FileSystem.ReadAllText(gradlePath, System.Text.Encoding.Default)
+            If gradleContent.Contains("signingConfigs {") Then
+                Return  'already there
+            End If
+            'Otherwise we find the spot to insert it
+            Dim regex As Regex = New Regex("(defaultConfig {)([^}]*)(})")
+            Dim match As Match = regex.Match(gradleContent)
+            If match.Success Then
+                If match.Groups.Count > 1 Then
+                    Dim indexInsert As Integer = match.Groups(3).Index + match.Groups(3).Value.Length
+                    Dim signConfigTemplate As String = vbNewLine & vbNewLine & "    signingConfigs {" & vbCrLf &
+                        "        release {" & vbCrLf &
+                        "            if (System.getenv()[""CI""]) { // CI=true is exported by Codemagic" & vbCrLf &
+                        "                storeFile file(System.getenv()[""FCI_KEYSTORE_PATH""])" & vbCrLf &
+                        "                storePassword System.getenv()[""FCI_KEYSTORE_PASSWORD""]" & vbCrLf &
+                        "                keyAlias System.getenv()[""FCI_KEY_ALIAS""]" & vbCrLf &
+                        "                keyPassword System.getenv()[""FCI_KEY_PASSWORD""]" & vbCrLf &
+                        "            } else {" & vbCrLf &
+                        "                storeFile file(""/path/to/local/myreleasekey.keystore"")" & vbCrLf &
+                        "                storePassword ""password""" & vbCrLf &
+                        "                keyAlias ""MyReleaseKey""" & vbCrLf &
+                        "                keyPassword ""password""" & vbCrLf &
+                        "            }" & vbCrLf &
+                        "        }" & vbCrLf &
+                        "    }"
+                    gradleContent = gradleContent.Insert(indexInsert, signConfigTemplate)
+                    My.Computer.FileSystem.WriteAllText(gradlePath, gradleContent, False, System.Text.Encoding.Default)
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox("Failed to prepare SigningConfigs")
+        End Try
+    End Sub
+
+    Private Sub recreateBuildTypes(ByVal projPath As String)
+        Dim gradlePath As String = projPath & "/android/app/build.gradle"
+        Try
+            Dim gradleContent As String = My.Computer.FileSystem.ReadAllText(gradlePath, System.Text.Encoding.Default)
+            Dim regex As Regex = New Regex("(buildTypes {[\n\r]+)([^}]*})([^}]*})")
+            Dim match As Match = regex.Match(gradleContent)
+
+            Dim shrinkify As String = chkShrinkResources.Checked.ToString.ToLower
+            Dim minify As String = chkMinify.Checked.ToString.ToLower
+
+            Dim releaseCode As String = "        release {" & vbCrLf &
+                                "            signingConfig signingConfigs.release" & vbCrLf &
+                                "            shrinkResources " & shrinkify & vbCrLf &
+                                "            minifyEnabled " & minify & vbCrLf &
+                                "        }"
+
+            If match.Success Then
+                If match.Groups.Count > 0 Then
+                    Dim newGradleContent As String = Regex.Replace(gradleContent, "(buildTypes {[\n\r]+)([^}]*})([^}]*})", "$1" & releaseCode & "$3", RegexOptions.Multiline)
+                    My.Computer.FileSystem.WriteAllText(gradlePath, newGradleContent, False, System.Text.Encoding.Default)
+                    MsgBox("Build config saved!")
+                End If
+            End If
+        Catch ex As Exception
+            MsgBox("Failed to prepare SigningConfigs")
+        End Try
+    End Sub
 End Class

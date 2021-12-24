@@ -1,0 +1,10 @@
+C:\Users\Dominick\Documents\GitHub\Flutter-Cleaner\Flutter Cleaner\Flutter Cleaner\bin\Release\Flutter Cleaner.exe.config
+C:\Users\Dominick\Documents\GitHub\Flutter-Cleaner\Flutter Cleaner\Flutter Cleaner\bin\Release\Flutter Cleaner.exe
+C:\Users\Dominick\Documents\GitHub\Flutter-Cleaner\Flutter Cleaner\Flutter Cleaner\bin\Release\Flutter Cleaner.pdb
+C:\Users\Dominick\Documents\GitHub\Flutter-Cleaner\Flutter Cleaner\Flutter Cleaner\bin\Release\Flutter Cleaner.xml
+C:\Users\Dominick\Documents\GitHub\Flutter-Cleaner\Flutter Cleaner\Flutter Cleaner\obj\Release\Flutter_Cleaner.Form1.resources
+C:\Users\Dominick\Documents\GitHub\Flutter-Cleaner\Flutter Cleaner\Flutter Cleaner\obj\Release\Flutter_Cleaner.Resources.resources
+C:\Users\Dominick\Documents\GitHub\Flutter-Cleaner\Flutter Cleaner\Flutter Cleaner\obj\Release\Flutter Cleaner.vbproj.GenerateResource.Cache
+C:\Users\Dominick\Documents\GitHub\Flutter-Cleaner\Flutter Cleaner\Flutter Cleaner\obj\Release\Flutter Cleaner.exe
+C:\Users\Dominick\Documents\GitHub\Flutter-Cleaner\Flutter Cleaner\Flutter Cleaner\obj\Release\Flutter Cleaner.xml
+C:\Users\Dominick\Documents\GitHub\Flutter-Cleaner\Flutter Cleaner\Flutter Cleaner\obj\Release\Flutter Cleaner.pdb

@@ -287,7 +287,7 @@ Partial Class Form1
         '
         Me.btnPrepReleaseConfig.Location = New System.Drawing.Point(66, 153)
         Me.btnPrepReleaseConfig.Name = "btnPrepReleaseConfig"
-        Me.btnPrepReleaseConfig.Size = New System.Drawing.Size(200, 25)
+        Me.btnPrepReleaseConfig.Size = New System.Drawing.Size(200, 26)
         Me.btnPrepReleaseConfig.TabIndex = 3
         Me.btnPrepReleaseConfig.Text = "Prepare Release Build Config"
         Me.btnPrepReleaseConfig.UseVisualStyleBackColor = True
