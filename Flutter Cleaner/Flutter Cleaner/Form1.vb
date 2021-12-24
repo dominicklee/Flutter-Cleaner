@@ -435,9 +435,103 @@ Public Class Form1
         Return False
     End Function
 
+    Private Sub getAppOrientations(ByVal projPath As String)
+        Dim mainDartFile As String = projPath & "/lib/main.dart"
+        lstOrientations.ClearSelected()
+
+        If My.Computer.FileSystem.FileExists(mainDartFile) Then
+            Try
+                Dim dartContent As String = My.Computer.FileSystem.ReadAllText(mainDartFile, System.Text.Encoding.Default)
+                Dim regex As Regex = New Regex("(?:SystemChrome.setPreferredOrientations\([\n\r]+)([^\)]*)(?:\);)", RegexOptions.Multiline)
+                Dim match As Match = regex.Match(dartContent)
+                If match.Success Then
+                    If match.Groups.Count > 0 Then
+                        Dim orientationsStr As String = match.Groups(1).Value
+                        'MsgBox(orientationsStr)
+                        If orientationsStr.Contains("portraitUp") Then
+                            lstOrientations.SetSelected(0, True)
+                        End If
+                        If orientationsStr.Contains("landscapeLeft") Then
+                            lstOrientations.SetSelected(1, True)
+                        End If
+                        If orientationsStr.Contains("landscapeRight") Then
+                            lstOrientations.SetSelected(2, True)
+                        End If
+                        If orientationsStr.Contains("portraitDown") Then
+                            lstOrientations.SetSelected(3, True)
+                        End If
+                    End If
+                Else
+                    MsgBox("No orientations defined in this app. Select something and hit Set Settings.")
+                End If
+            Catch ex As Exception
+            End Try
+        Else
+            MsgBox("Failed to find main dart file")
+        End If
+    End Sub
+
+    Private Sub setAppOrientations(ByVal projPath As String)
+        'run prepareFlutterOrientation before running this function
+        Dim mainDartFile As String = projPath & "/lib/main.dart"
+
+        If My.Computer.FileSystem.FileExists(mainDartFile) Then
+            Try
+                Dim dartContent As String = My.Computer.FileSystem.ReadAllText(mainDartFile, System.Text.Encoding.Default)
+                Dim csvOrientations As String = ""
+                'build CSV based on selected listbox items
+                For Each item In lstOrientations.SelectedItems
+                    csvOrientations &= "        DeviceOrientation." & item & "," & vbNewLine
+                Next
+                csvOrientations = csvOrientations.Substring(0, csvOrientations.Length - 2)  'remove last newline
+                Dim newOrientations As String = "    [" & vbNewLine & csvOrientations & vbNewLine & "    ]"    'this corrects indentations
+                Dim newDartContent As String = Regex.Replace(dartContent, "([\S\s]*SystemChrome.setPreferredOrientations\([\n\r]+)([^\)]*)(\);[\S\s]*)", "$1" & newOrientations & "$3", RegexOptions.Multiline)
+                My.Computer.FileSystem.WriteAllText(mainDartFile, newDartContent, False, System.Text.Encoding.Default)
+                MsgBox("Android orientations saved!")
+            Catch ex As Exception
+                MsgBox("Failed to update Android orientation settings")
+            End Try
+        Else
+            MsgBox("Failed to find main dart file")
+        End If
+
+        Dim plistFile As String = projPath & "/ios/Runner/Info.plist"
+
+        If My.Computer.FileSystem.FileExists(plistFile) Then
+            Try
+                Dim plistContent As String = My.Computer.FileSystem.ReadAllText(plistFile, System.Text.Encoding.Default)
+                Dim regex As Regex = New Regex("([\s\S]*UISupportedInterfaceOrientations<\/key>[\n\r]+.*<array>)([\s\S]*?)(<\/array>[\s\S]*)", RegexOptions.Multiline)
+                Dim match As Match = regex.Match(plistContent)
+                Dim csvOrientations As String = ""
+                'build CSV based on selected listbox items
+                For Each item In lstOrientations.SelectedItems
+                    If item = "portraitUp" Then
+                        csvOrientations &= vbTab & vbTab & "<string>UIInterfaceOrientationPortrait</String>" & vbNewLine
+                    End If
+                    If item = "landscapeLeft" Then
+                        csvOrientations &= vbTab & vbTab & "<string>UIInterfaceOrientationLandscapeLeft</String>" & vbNewLine
+                    End If
+                    If item = "landscapeRight" Then
+                        csvOrientations &= vbTab & vbTab & "<string>UIInterfaceOrientationLandscapeRight</String>" & vbNewLine
+                    End If
+                    If item = "portraitDown" Then
+                        csvOrientations &= vbTab & vbTab & "<string>UIInterfaceOrientationPortraitUpsideDown</String>" & vbNewLine
+                    End If
+                Next
+
+                If match.Groups.Count > 0 Then
+                    Dim newPlist As String = Regex.Replace(plistContent, "([\s\S]*UISupportedInterfaceOrientations<\/key>[\n\r]+.*<array>)([\s\S]*?)(<\/array>[\s\S]*)", "$1" & vbNewLine & csvOrientations & vbTab & "$3", RegexOptions.Multiline)
+                    My.Computer.FileSystem.WriteAllText(plistFile, newPlist, False, System.Text.Encoding.Default)
+                End If
+                MsgBox("iOS orientations saved!")
+            Catch ex As Exception
+                MsgBox("Failed to update iOS orientation settings")
+            End Try
+        End If
+    End Sub
+
     Private Sub btnGetOrientations_Click(sender As Object, e As EventArgs) Handles btnGetOrientations.Click
-        lstOrientations.SetSelected(0, True)
-        lstOrientations.SetSelected(3, True)
+        getAppOrientations(txtProjectPath.Text)
     End Sub
 
     Private Sub btnSetOrientations_Click(sender As Object, e As EventArgs) Handles btnSetOrientations.Click
@@ -446,11 +540,7 @@ Public Class Form1
             MsgBox("Failed to prepare main.dart with orientation. Check project directory and file permissions.")
         Else
             'Proceed to update orientations
-
+            setAppOrientations(txtProjectPath.Text)
         End If
-
-        For Each item In lstOrientations.SelectedItems
-            MsgBox(item)
-        Next
     End Sub
 End Class
