@@ -506,16 +506,16 @@ Public Class Form1
                 'build CSV based on selected listbox items
                 For Each item In lstOrientations.SelectedItems
                     If item = "portraitUp" Then
-                        csvOrientations &= vbTab & vbTab & "<string>UIInterfaceOrientationPortrait</String>" & vbNewLine
+                        csvOrientations &= vbTab & vbTab & "<string>UIInterfaceOrientationPortrait</string>" & vbNewLine
                     End If
                     If item = "landscapeLeft" Then
-                        csvOrientations &= vbTab & vbTab & "<string>UIInterfaceOrientationLandscapeLeft</String>" & vbNewLine
+                        csvOrientations &= vbTab & vbTab & "<string>UIInterfaceOrientationLandscapeLeft</string>" & vbNewLine
                     End If
                     If item = "landscapeRight" Then
-                        csvOrientations &= vbTab & vbTab & "<string>UIInterfaceOrientationLandscapeRight</String>" & vbNewLine
+                        csvOrientations &= vbTab & vbTab & "<string>UIInterfaceOrientationLandscapeRight</string>" & vbNewLine
                     End If
                     If item = "portraitDown" Then
-                        csvOrientations &= vbTab & vbTab & "<string>UIInterfaceOrientationPortraitUpsideDown</String>" & vbNewLine
+                        csvOrientations &= vbTab & vbTab & "<string>UIInterfaceOrientationPortraitUpsideDown</string>" & vbNewLine
                     End If
                 Next
 
